@@ -19,6 +19,14 @@ func (test FakeWirelessTypeDetector) IsType(deviceName string) bool {
 	return false
 }
 
+type FakeListInterfaces struct {
+	Interfaces []pcap.Interface
+}
+
+func (test FakeListInterfaces) List() []pcap.Interface {
+	return test.Interfaces
+}
+
 var _ = Describe("Device", func() {
 
 	Context("a machine with a wifi network card", func() {
@@ -37,7 +45,7 @@ var _ = Describe("Device", func() {
 			fakeWirelessTypeDetector := FakeWirelessTypeDetector{WifiDeviceName: "dev-1"}
 			wifiInterface := Device{}
 
-			wifiDevice, err := wifiInterface.GetInterface(fakeWirelessTypeDetector, ifs)
+			wifiDevice, err := wifiInterface.GetInterface(fakeWirelessTypeDetector, FakeListInterfaces{Interfaces: ifs})
 			Expect(err).To(BeNil())
 			Expect(wifiDevice).ToNot(BeNil())
 			Expect(wifiDevice.Name).To(Equal("dev-1"))
@@ -60,7 +68,7 @@ var _ = Describe("Device", func() {
 			fakeWirelessTypeDetector := FakeWirelessTypeDetector{WifiDeviceName: "dev-1"}
 			wifiInterface := Device{}
 
-			_, err := wifiInterface.GetInterface(fakeWirelessTypeDetector, ifs)
+			_, err := wifiInterface.GetInterface(fakeWirelessTypeDetector, FakeListInterfaces{Interfaces: ifs})
 			Expect(err).ToNot(BeNil())
 		})
 	})

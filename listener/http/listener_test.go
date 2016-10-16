@@ -11,11 +11,11 @@ var _ = Describe("Listener", func() {
 
 	Context("Listen to all http traffic", func() {
 		It("Should listen to only http traffic on an interface", func() {
-			listener := HttpListener{}
+			listener := HttpListener{Interface: "en1"}
 
-			packets := listener.Listen()
+			_, err := listener.Listen()
 
-			Expect(packets).To(BeNil())
+			Expect(err).To(HaveOccurred())
 		})
 	})
 })

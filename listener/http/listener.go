@@ -11,13 +11,19 @@ type HttpListener struct {
 	Interface string
 }
 
-func (listener HttpListener) Listen() chan gopacket.Packet {
-	_, err := pcap.OpenLive(listener.Interface,
+func (listener HttpListener) Listen() (chan gopacket.Packet, error) {
+	handle, err := pcap.OpenLive(listener.Interface,
 		int32(65535),
 		true,
 		-1 * time.Second)
 
-	fmt.Println(err)
-	return nil
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+
+	packetSource := gopacket.NewPacketSource(handle, handle.LinkType())
+
+	return packetSource.Packets(), nil
 }
 
