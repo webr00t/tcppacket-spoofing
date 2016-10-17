@@ -1,7 +1,14 @@
 package listener
 
-import "github.com/google/gopacket"
+import (
+	"github.com/google/gopacket"
+)
 
 type Listener interface {
-	Listen() chan gopacket.Packet
+	Listen(packetReader PacketReader) chan gopacket.Packet
+}
+
+
+type PacketReader interface {
+	Packets(deviceName string) (chan gopacket.Packet, error)
 }
