@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+
 type HttpListener struct {
 	DeviceName string
 }
