@@ -9,13 +9,16 @@ import (
 	"strings"
 )
 
-
 type HttpListener struct {
 	DeviceName string
 }
 
 type HttpPacketReader struct {
 
+}
+
+func NewHttpListener(deviceName string) HttpListener {
+	return HttpListener{DeviceName: deviceName}
 }
 
 func (httpPacketReader HttpPacketReader) Packets(deviceName string) (chan gopacket.Packet, error) {
@@ -49,7 +52,9 @@ func (listener HttpListener) Listen(packetReader listener.PacketReader) (chan go
 				continue
 			}
 
-			if strings.Contains(string(tcpPacket.ApplicationLayer().Payload()), "HTTP/1.1") {
+			isHttp := strings.Contains(string(tcpPacket.ApplicationLayer().Payload()), "HTTP/1.1")
+			isGet := strings.Contains(string(tcpPacket.ApplicationLayer().Payload()), "GET")
+			if isGet && isHttp {
 				httpPackets <- tcpPacket
 			}
 		}

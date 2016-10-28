@@ -8,9 +8,33 @@ import (
 	"os"
 	"github.com/google/gopacket/pcapgo"
 	"github.com/google/gopacket/layers"
+	"github.com/DennisDenuto/wifi-redirector/listener/http"
+	sender_http "github.com/DennisDenuto/wifi-redirector/sender/http"
 )
 
 func main() {
+	httpListener := http.NewHttpListener("en1")
+	httpPackets, err := httpListener.Listen(http.HttpPacketReader{})
+
+	if err != nil {
+		fmt.Errorf("error listening", err)
+		return
+	}
+
+	handle, _ := pcap.OpenLive("en1",
+		int32(65535),
+		true,
+		-1 * time.Second)
+
+	httpInterceptor := sender_http.HttpInterceptor{Sender: sender_http.PacketSender{Handler: handle}}
+
+	for packet := range httpPackets {
+		httpInterceptor.Intercept("en1", packet, sender_http.PacketSender{})
+	}
+
+}
+
+func main1() {
 	fmt.Println("hi")
 
 	ifs, _ := pcap.FindAllDevs()
