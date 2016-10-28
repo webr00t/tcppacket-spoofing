@@ -1,0 +1,5 @@
+applications:
+ - name: slowserver
+   env:
+     GOVERSION: go1.7
+     GOPACKAGENAME: main
