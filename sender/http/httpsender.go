@@ -2,7 +2,7 @@ package http
 
 import (
 	"github.com/google/gopacket"
-	"github.com/DennisDenuto/wifi-redirector/sender"
+	"github.com/DennisDenuto/tcppacket-spoofing/sender"
 	"github.com/google/gopacket/pcap"
 	"github.com/google/gopacket/layers"
 	"fmt"
