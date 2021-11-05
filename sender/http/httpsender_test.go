@@ -3,7 +3,7 @@ package http_test
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/DennisDenuto/wifi-redirector/sender/http"
+	"github.com/DennisDenuto/tcppacket-spoofing/sender/http"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
 )
