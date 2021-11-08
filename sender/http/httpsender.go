@@ -2,7 +2,7 @@ package http
 
 import (
 	"github.com/google/gopacket"
-	"github.com/DennisDenuto/tcppacket-spoofing/sender"
+	"github.com/webr00t/tcppacket-spoofing/sender"
 	"github.com/google/gopacket/pcap"
 	"github.com/google/gopacket/layers"
 	"fmt"
