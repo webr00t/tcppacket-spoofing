@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/DennisDenuto/wifi-redirector/listener/http"
-	sender_http "github.com/DennisDenuto/wifi-redirector/sender/http"
+	"github.com/webr00t/tcppacket-spoofing/listener/http"
+	sender_http "github.com/webr00t/tcppacket-spoofing/sender/http"
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
 	"github.com/google/gopacket/pcapgo"
